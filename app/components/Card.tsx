@@ -7,6 +7,13 @@ interface Pokemon {
   url: string;
 }
 
+interface PokemonTypeItem {
+  pokemon: {
+    name: string;
+    url: string;
+  };
+}
+
 interface PokemonDetail {
   id: number;
   name: string;
@@ -33,7 +40,7 @@ const Card = ({
   selectedType,
 }: {
   searchedPokemon: PokemonDetail | null;
-  selectedType: any[] | string;
+  selectedType: string | PokemonTypeItem[];
 }) => {
   const [url, setUrl] = useState<string>(
     `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`
@@ -59,7 +66,7 @@ const Card = ({
         const typeData = await typeRes.json();
 
         const list = typeData.pokemon;
-        const detailPromises = list.map((item: any) =>
+        const detailPromises = (list as PokemonTypeItem[]).map((item) =>
           fetch(item.pokemon.url)
             .then(r => (r.ok ? r.json() : null))
             .catch((err) => {

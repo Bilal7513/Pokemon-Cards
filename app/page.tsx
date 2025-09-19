@@ -7,6 +7,15 @@ interface Type {
   url: string;
 }
 
+interface PokemonTypeItem {
+  pokemon: {
+    name: string;
+    url: string;
+  };
+}
+
+type SelectedType = string | PokemonTypeItem[];
+
 interface PokemonDetail {
   id: number;
   name: string;
@@ -30,7 +39,7 @@ interface PokemonDetail {
 
 export default function Home() {
   const [types, setTypes] = useState<Type[]>([]);
-  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<SelectedType>("");
   const [name, setName] = useState<string>("");
   const [searchedPokemon, setSearchedPokemon] = useState<PokemonDetail | null>(null);
 
@@ -77,7 +86,7 @@ export default function Home() {
         <div className="mt-[25px]">
           <form className="p-[10px] w-[350px]">
             <select
-              value={selectedType}
+              value={typeof selectedType === "string" ? selectedType : ""}
               onChange={(e) => setSelectedType(e.target.value)}
               className="w-full p-2 bg-white rounded text-black outline-none"
             >
