@@ -69,7 +69,7 @@ const PokemonPage = async ({ params }: { params: { id: string } }) => {
         {pokemon.name}
       </h1>
       <div
-        className={`w-full mx-auto flex items-center justify-around capitalize`}
+        className={`w-full pb-[6px] mx-auto flex items-center justify-around capitalize`}
       >
         <div className="flex flex-col items-start gap-4">
           <p className="text-lg font-semibold tracking-wider">
