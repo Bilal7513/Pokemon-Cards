@@ -151,15 +151,15 @@ const Card = ({
               <Link href={`/pokemon/${p.id}`} key={p.id}>
                 <div
                   key={p.id}
-                  className={`${mainType} flex flex-col rounded-[10px] shadow-[0.5px_0.5px_5px] items-center justify-center p-[8px] m-[5px] cursor-pointer transition-all hover:shadow-[0.5px_0.5px_10px] hover:transition-all`}
+                  className={`${mainType} flex flex-col rounded-[10px] shadow-[0.5px_0.5px_5px] text-center items-center justify-center p-[8px] m-[5px] cursor-pointer transition-all hover:shadow-[0.5px_0.5px_10px] hover:transition-all`}
                 >
                   <img
                     src={p.sprites.other["official-artwork"].front_default}
                     alt={p.name}
                     className="w-[250px] h-[200px] "
                   />
-                  <h2 className="font-bold capitalize text-[22px]">
-                    {p.id}. {p.name}
+                  <h2 className="font-bold capitalize text-[22px] w-[200px] truncate">
+                    {p.id}. <span className="">{p.name}</span>
                   </h2>
                   <p className="text-black font-medium text-[15px] capitalize">
                     {allTypes}
