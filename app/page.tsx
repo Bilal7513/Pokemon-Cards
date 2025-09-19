@@ -41,7 +41,9 @@ export default function Home() {
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedType, setSelectedType] = useState<SelectedType>("");
   const [name, setName] = useState<string>("");
-  const [searchedPokemon, setSearchedPokemon] = useState<PokemonDetail | null>(null);
+  const [searchedPokemon, setSearchedPokemon] = useState<PokemonDetail | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -55,15 +57,22 @@ export default function Home() {
   }, []);
 
   async function searchPokemon() {
-    if(!name) {
-    setSearchedPokemon(null);
-    return;
-  };
+    if (!name) {
+      setSearchedPokemon(null);
+      return;
+    }
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const res = await fetch(url);
     const data = await res.json();
     setSearchedPokemon(data);
   }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchPokemon();
+    }
+  };
 
   return (
     <div className="bg-[#ffc412] h-[100px] w-full">
@@ -74,9 +83,13 @@ export default function Home() {
             placeholder="Search..."
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="h-[40px] px-[8px] w-[250px] mr-[6px] outline-none rounded-[3px] text-black bg-white"
           />
-          <button onClick={() => searchPokemon()} className="bg-[#2B76BA] h-[40px] tracking-wider text-white rounded-[3px] font-bold px-[8px] transition-all cursor-pointer focus:outline-[#8A2BE2]">
+          <button
+            onClick={() => searchPokemon()}
+            className="bg-[#2B76BA] h-[40px] tracking-wider text-white rounded-[3px] font-bold px-[8px] transition-all cursor-pointer focus:outline-[#8A2BE2]"
+          >
             Search
           </button>
         </div>
@@ -101,7 +114,7 @@ export default function Home() {
         </div>
       </div>
       <div className="w-[1200px] mx-auto py-[40px]">
-        <Card selectedType={selectedType} searchedPokemon={searchedPokemon}/>
+        <Card selectedType={selectedType} searchedPokemon={searchedPokemon} />
       </div>
     </div>
   );
